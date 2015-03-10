@@ -35,6 +35,7 @@ public interface AwContentsIoThreadClient {
                                 String userAgent,
                                 String contentDisposition,
                                 String mimeType,
+                                String referer,
                                 long contentLength);
 
     @CalledByNative

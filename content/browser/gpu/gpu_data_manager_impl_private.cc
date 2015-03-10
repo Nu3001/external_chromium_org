@@ -278,6 +278,8 @@ void ApplyAndroidWorkarounds(const gpu::GPUInfo& gpu_info,
       gpu_info.machine_model.find("Nexus 7") != std::string::npos;
   bool is_nexus10 =
       gpu_info.machine_model.find("Nexus 10") != std::string::npos;
+  bool is_rk3288 =
+      gpu_info.machine_model.find("rk3288") != std::string::npos;
 
   int sdk_int = base::android::BuildInfo::GetInstance()->sdk_int();
 
@@ -311,8 +313,8 @@ void ApplyAndroidWorkarounds(const gpu::GPUInfo& gpu_info,
 
   // If we are using the MapImage API double the tile size to reduce
   // the number of zero-copy buffers being used.
-  if (command_line->HasSwitch(cc::switches::kUseMapImage))
-    default_tile_size *= 2;
+  //if (command_line->HasSwitch(cc::switches::kUseMapImage))
+  //  default_tile_size *= 2;
 
   // Set the command line if it isn't already set and we changed
   // the default tile size.
@@ -328,7 +330,7 @@ void ApplyAndroidWorkarounds(const gpu::GPUInfo& gpu_info,
   }
 
   // Increase the resolution of low resolution tiles for Nexus tablets.
-  if ((is_nexus7 || is_nexus10) &&
+  if ((is_nexus7 || is_nexus10 || is_rk3288) &&
       !command_line->HasSwitch(
           cc::switches::kLowResolutionContentsScaleFactor)) {
     command_line->AppendSwitchASCII(

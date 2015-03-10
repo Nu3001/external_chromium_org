@@ -307,12 +307,14 @@ void InProcessViewRenderer::CalculateTileMemoryPolicy() {
     }
   }
 
+#if 0
   const char kDefaultTileSize[] = "384";
   if (!cl->HasSwitch(switches::kDefaultTileWidth))
     cl->AppendSwitchASCII(switches::kDefaultTileWidth, kDefaultTileSize);
 
   if (!cl->HasSwitch(switches::kDefaultTileHeight))
     cl->AppendSwitchASCII(switches::kDefaultTileHeight, kDefaultTileSize);
+#endif
 }
 
 bool InProcessViewRenderer::RequestProcessGL() {

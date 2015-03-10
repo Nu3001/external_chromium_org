@@ -284,9 +284,10 @@ public class AwContents {
                                     String userAgent,
                                     String contentDisposition,
                                     String mimeType,
+                                    String referer,
                                     long contentLength) {
             mContentsClient.getCallbackHelper().postOnDownloadStart(url, userAgent,
-                    contentDisposition, mimeType, contentLength);
+                    contentDisposition, mimeType, referer, contentLength);
         }
 
         @Override

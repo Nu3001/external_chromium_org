@@ -30,17 +30,20 @@ class AwContentsClientCallbackHelper {
         final String mUserAgent;
         final String mContentDisposition;
         final String mMimeType;
+		final String mReferer;
         final long mContentLength;
 
         DownloadInfo(String url,
                      String userAgent,
                      String contentDisposition,
                      String mimeType,
+                     String referer,
                      long contentLength) {
             mUrl = url;
             mUserAgent = userAgent;
             mContentDisposition = contentDisposition;
             mMimeType = mimeType;
+			mReferer = referer;
             mContentLength = contentLength;
         }
     }
@@ -103,7 +106,7 @@ class AwContentsClientCallbackHelper {
                 case MSG_ON_DOWNLOAD_START: {
                     DownloadInfo info = (DownloadInfo) msg.obj;
                     mContentsClient.onDownloadStart(info.mUrl, info.mUserAgent,
-                            info.mContentDisposition, info.mMimeType, info.mContentLength);
+                            info.mContentDisposition, info.mMimeType, info.mReferer, info.mContentLength);
                     break;
                 }
                 case MSG_ON_RECEIVED_LOGIN_REQUEST: {
@@ -155,9 +158,9 @@ class AwContentsClientCallbackHelper {
     }
 
     public void postOnDownloadStart(String url, String userAgent, String contentDisposition,
-            String mimeType, long contentLength) {
+            String mimeType, String referer, long contentLength) {
         DownloadInfo info = new DownloadInfo(url, userAgent, contentDisposition, mimeType,
-                contentLength);
+                referer, contentLength);
         mHandler.sendMessage(mHandler.obtainMessage(MSG_ON_DOWNLOAD_START, info));
     }
 

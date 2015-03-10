@@ -235,11 +235,13 @@ void AwResourceDispatcherHostDelegate::DownloadStarting(
   std::string user_agent;
   std::string content_disposition;
   std::string mime_type;
+  std::string referer;
   int64 content_length = request->GetExpectedContentSize();
 
   request->extra_request_headers().GetHeader(
       net::HttpRequestHeaders::kUserAgent, &user_agent);
 
+  referer = request->referrer();
 
   net::HttpResponseHeaders* response_headers = request->response_headers();
   if (response_headers) {
@@ -260,6 +262,7 @@ void AwResourceDispatcherHostDelegate::DownloadStarting(
                            user_agent,
                            content_disposition,
                            mime_type,
+                           referer,
                            content_length);
   }
 }

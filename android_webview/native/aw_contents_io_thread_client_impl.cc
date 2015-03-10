@@ -277,6 +277,7 @@ void AwContentsIoThreadClientImpl::NewDownload(
     const std::string& user_agent,
     const std::string& content_disposition,
     const std::string& mime_type,
+    const std::string& referer,
     int64 content_length) {
   DCHECK(BrowserThread::CurrentlyOn(BrowserThread::IO));
   if (java_object_.is_null())
@@ -291,6 +292,8 @@ void AwContentsIoThreadClientImpl::NewDownload(
       ConvertUTF8ToJavaString(env, content_disposition);
   ScopedJavaLocalRef<jstring> jstring_mime_type =
       ConvertUTF8ToJavaString(env, mime_type);
+  ScopedJavaLocalRef<jstring> jstring_referer =
+      ConvertUTF8ToJavaString(env, referer);
 
   Java_AwContentsIoThreadClient_onDownloadStart(
       env,
@@ -299,6 +302,7 @@ void AwContentsIoThreadClientImpl::NewDownload(
       jstring_user_agent.obj(),
       jstring_content_disposition.obj(),
       jstring_mime_type.obj(),
+      jstring_referer.obj(),
       content_length);
 }
 

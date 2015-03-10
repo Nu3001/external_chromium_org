@@ -10,6 +10,8 @@ import android.net.Uri;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.Surface;
+import android.content.pm.PackageManager;
+import android.os.PowerManager;
 
 import org.chromium.base.CalledByNative;
 import org.chromium.base.JNINamespace;
@@ -113,8 +115,10 @@ public class MediaPlayerBridge {
             headersMap.put("x-hide-urls-from-log", "true");
         if (!TextUtils.isEmpty(cookies))
             headersMap.put("Cookie", cookies);
+        headersMap.put("X-Requested-With", "com.android.browser");
         try {
             getLocalPlayer().setDataSource(context, uri, headersMap);
+            getLocalPlayer().setWakeMode(context, PowerManager.FULL_WAKE_LOCK);
             return true;
         } catch (Exception e) {
             return false;

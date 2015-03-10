@@ -86,6 +86,7 @@ class AwContentsIoThreadClient {
                            const std::string& user_agent,
                            const std::string& content_disposition,
                            const std::string& mime_type,
+                           const std::string& referer,
                            int64 content_length) = 0;
 
   // Called when a new login request is detected. See the documentation for
